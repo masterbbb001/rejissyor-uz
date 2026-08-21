@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow: hidden;
+  }
+
+  body {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
+  }
+
+  ::selection {
+    background: #c9a227;
+    color: #0a0a0c;
+  }
+
+  /* visible keyboard focus everywhere — cinema chrome shouldn't hide it */
+  :focus-visible {
+    outline: 2px solid #c9a227;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0c;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2730;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3542;
+  }
+}
+
+@layer components {
+  /* Ambient film-grain texture laid over the whole app */
+  .grain-overlay {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Sprocket-hole rails, evoking a 35mm film strip, at both edges */
+  .sprocket-rail {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 22px;
+    z-index: 50;
+    pointer-events: none;
+    background-color: #050505;
+    background-image: radial-gradient(
+      circle,
+      #0a0a0c 3px,
+      transparent 3.5px
+    );
+    background-size: 22px 26px;
+    background-position: center;
+  }
+
+  .sprocket-rail.left {
+    left: 0;
+  }
+  .sprocket-rail.right {
+    right: 0;
+  }
+
+  @media (max-width: 767px) {
+    .sprocket-rail {
+      width: 12px;
+      background-size: 12px 18px;
+    }
+  }
+}
